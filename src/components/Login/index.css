@@ -1,0 +1,54 @@
+.quiz-app-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: #272727; */
+  padding: 65px;
+  border-radius: 15px;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 411px;
+  margin-top: 35px;
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+.user-input {
+  height: 50px;
+  font-size: 24px;
+  font-weight: 400;
+}
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.login-button {
+  background-color: #4f46e5;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  border: none;
+  /* color: #fff; */
+  margin-top: 10px;
+}
+.label {
+  /* color: #fff; */
+  font-size: 14px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  margin-bottom: 8px;
+}

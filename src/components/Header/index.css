@@ -1,0 +1,11 @@
+.navbar-conainer {
+  height: 88px;
+  max-width: 1440px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background-color: #f4fbfe;
+}
+li {
+  list-style-type: none;
+}
