@@ -2,7 +2,7 @@ import {useLocation, useHistory} from 'react-router-dom'
 import Header from '../Header'
 import './index.css'
 
-const GameResult = () => {
+const GameResultRoute = () => {
   const location = useLocation()
   const history = useHistory()
   const {crctAns = 0, ttlQns = 10, questions = []} = location.state || {}
@@ -26,14 +26,14 @@ const GameResult = () => {
       <Header />
       <div className="background">
         <div
-          className={`result-container ${
+          className={`results-container ${
             isWinner ? 'congrats-background' : ''
           }`}
         >
           {isWinner ? (
             <div className="result">
               <img
-                src="https://assets.ccbp.in/frontend/react-js/quiz-game-congrats-trophy-img.png "
+                src="https://assets.ccbp.in/frontend/react-js/quiz-game-congrats-trophy-img.png"
                 alt="won"
                 className="won-image"
               />
@@ -41,7 +41,7 @@ const GameResult = () => {
               <h1 className="percentage-text">
                 {correctPercentage}% Correctly Answered
               </h1>
-              <p className="success-text">Quiz completed successfully </p>
+              <p className="success-text">Quiz completed successfully</p>
               <p className="score-text">
                 You attempted {crctAns} out of {ttlQns} questions as correct
               </p>
@@ -56,7 +56,7 @@ const GameResult = () => {
           ) : (
             <div className="result">
               <img
-                src="https://assets.ccbp.in/frontend/react-js/quiz-game-lose-img.png "
+                src="https://assets.ccbp.in/frontend/react-js/quiz-game-lose-img.png"
                 alt="lose"
                 className="lose-image"
               />
@@ -64,7 +64,6 @@ const GameResult = () => {
               <h1 className="percentage-text">
                 {correctPercentage}% Correctly Answered
               </h1>
-              <p className="success-text">Quiz completed successfully </p>
               <p className="score-text">
                 You attempted {crctAns} out of {ttlQns} questions as correct
               </p>
@@ -82,4 +81,5 @@ const GameResult = () => {
     </div>
   )
 }
-export default GameResult
+
+export default GameResultRoute

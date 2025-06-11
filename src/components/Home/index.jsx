@@ -15,12 +15,12 @@ class Home extends Component {
     // Simulate an HTTP GET request
     setTimeout(() => {
       this.setState({isLoading: false})
-      // Redirect to quiz page can be handled here if needed
-    }, 2000) // Simulating a delay
+      // this.props.history.push('/quiz-game') // Redirect to quiz page can be handled here if needed
+    }, 1000) // Simulating a delay
   }
 
   renderLoader = () => (
-    <div data-testid="loader" className="loader">
+    <div testid="loader" className="loader">
       <Loader type="ThreeDots" color="#0b69ff" height={50} width={50} />
     </div>
   )

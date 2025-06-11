@@ -2,9 +2,9 @@ import {useLocation} from 'react-router-dom'
 import Header from '../Header'
 import './index.css'
 
-const GameReport = () => {
+const GameReportsRoute = () => {
   const location = useLocation()
-  const {questions = [], ttlqns = 0} = location.state || {}
+  const {questions = [], ttlQns = 0} = location.state || {}
 
   const getUnattemptedQuestions = () =>
     questions.filter(question => question.slctOptId === null)
@@ -83,7 +83,7 @@ const GameReport = () => {
           <div className="score-container">
             <div className="score-circle">
               <p>
-                <span className="score">{CorrectAnswers}</span>/{ttlqns}
+                <span className="score">{CorrectAnswers}</span>/{ttlQns}
               </p>
             </div>
             <div className="score-details">
@@ -119,4 +119,5 @@ const GameReport = () => {
     </div>
   )
 }
-export default GameReport
+
+export default GameReportsRoute

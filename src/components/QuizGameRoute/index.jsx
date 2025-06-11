@@ -5,7 +5,7 @@ import Loader from 'react-loader-spinner'
 import Header from '../Header'
 import './index.css'
 
-const QuizGame = () => {
+const QuizGameRoute = () => {
   const [quizQuestions, setQuizQuestions] = useState([])
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0)
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(-1)
@@ -86,7 +86,7 @@ const QuizGame = () => {
   }, [apiStatus, activeQuestionIndex])
 
   const renderLoadingView = () => (
-    <div data-testid="loader" className="loader">
+    <div testid="loader" className="loader">
       <Loader type="ThreeDots" color="#0b69ff" height={50} width={50} />
     </div>
   )
@@ -313,7 +313,7 @@ const QuizGame = () => {
             className="next-btn"
             onClick={handleNextQuestion}
             disabled={selectedAnswerIndex === -1}
-            type="button"
+            role="button"
           >
             {activeQuestionIndex + 1 === quizQuestions.length
               ? 'Submit'
@@ -345,4 +345,4 @@ const QuizGame = () => {
   )
 }
 
-export default QuizGame
+export default QuizGameRoute
