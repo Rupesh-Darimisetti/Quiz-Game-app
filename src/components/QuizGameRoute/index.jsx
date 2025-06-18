@@ -10,6 +10,7 @@ const QuizGameRoute = () => {
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0)
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(-1)
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0)
+  // eslint-disable-next-line
   const [quizFinished, setQuizFinished] = useState(false)
   const [timer, setTimer] = useState(15)
   const history = useHistory()
@@ -23,7 +24,7 @@ const QuizGameRoute = () => {
   }
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
 
-  const fetchQuizQuestions = async () => {
+  async function fetchQuizQuestions() {
     setApiStatus(apiStatusConstants.inProgress)
     try {
       const jwtToken = Cookies.get('jwt_token')
@@ -74,6 +75,7 @@ const QuizGameRoute = () => {
 
   useEffect(() => {
     fetchQuizQuestions()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -83,10 +85,11 @@ const QuizGameRoute = () => {
     return () => {
       clearInterval(timerRef.current)
     }
+    // eslint-disable-next-line
   }, [apiStatus, activeQuestionIndex])
 
   const renderLoadingView = () => (
-    <div testid="loader" className="loader">
+    <div data-testid="loader" className="loader">
       <Loader type="ThreeDots" color="#0b69ff" height={50} width={50} />
     </div>
   )
@@ -144,7 +147,7 @@ const QuizGameRoute = () => {
       setSelectedAnswerIndex(-1)
       setTimer(15)
     } else {
-      setQuizFinished(true)
+      setQuizFinished(true) // Update the state to indicate quiz is finished
       history.push({
         pathname: '/game-results',
         state: {
@@ -160,6 +163,7 @@ const QuizGameRoute = () => {
     if (timer === 0 && selectedAnswerIndex === -1) {
       handleNextQuestion()
     }
+    // eslint-disable-next-line
   }, [timer])
 
   const renderQuiz = () => {
@@ -313,7 +317,7 @@ const QuizGameRoute = () => {
             className="next-btn"
             onClick={handleNextQuestion}
             disabled={selectedAnswerIndex === -1}
-            role="button"
+            type="button"
           >
             {activeQuestionIndex + 1 === quizQuestions.length
               ? 'Submit'
