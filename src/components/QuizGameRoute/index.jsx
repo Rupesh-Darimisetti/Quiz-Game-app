@@ -5,7 +5,7 @@ import Loader from 'react-loader-spinner'
 import Header from '../Header'
 import './index.css'
 
-const QuizGameRoute = () => {
+const QuizGame = () => {
   const [quizQuestions, setQuizQuestions] = useState([])
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0)
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(-1)
@@ -17,10 +17,10 @@ const QuizGameRoute = () => {
   const timerRef = useRef(null)
 
   const apiStatusConstants = {
+    inProgress: 'IN_PROGRESS',
     initial: 'INITIAL',
     success: 'SUCCESS',
     failure: 'FAILURE',
-    inProgress: 'IN_PROGRESS',
   }
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
 
@@ -82,15 +82,14 @@ const QuizGameRoute = () => {
     if (apiStatus === apiStatusConstants.success) {
       startTimer()
     }
-    return () => {
-      clearInterval(timerRef.current)
-    }
+    return () => clearInterval(timerRef.current)
+
     // eslint-disable-next-line
   }, [apiStatus, activeQuestionIndex])
 
   const renderLoadingView = () => (
-    <div data-testid="loader" className="loader">
-      <Loader type="ThreeDots" color="#0b69ff" height={50} width={50} />
+    <div className='loader-container' data-testid='loader'>
+      <Loader type='ThreeDots' color='#263868' height={50} width={50} />
     </div>
   )
 
@@ -106,16 +105,16 @@ const QuizGameRoute = () => {
   }
 
   const renderFailureView = () => (
-    <div className="quiz-page">
-      <div className="quiz-page-content fail-container">
+    <div className='quiz-page'>
+      <div className='quiz-page-content fail-container'>
         <img
-          src="https://assets.ccbp.in/frontend/react-js/nxt-assess-failure-img.png"
-          alt="failure view"
-          className="fail-image"
+          src='https://assets.ccbp.in/frontend/react-js/nxt-assess-failure-img.png'
+          alt='failure view'
+          className='fail-image'
         />
-        <h1 className="fail-head">Something went wrong</h1>
-        <p className="fail-text">Our servers are busy please try again</p>
-        <button type="button" className="next-btn" onClick={handleRetry}>
+        <h1 className='fail-head'>Something went wrong</h1>
+        <p className='fail-text'>Our servers are busy please try again</p>
+        <button type='button' className='next-btn' onClick={handleRetry}>
           Retry
         </button>
       </div>
@@ -187,13 +186,13 @@ const QuizGameRoute = () => {
                 <button
                   className={`option ${optionClass}`}
                   onClick={() => handleAnswerSelection(option.id)}
-                  type="button"
+                  type='button'
                   disabled={slctOptId !== null}
                 >
                   {option.text}
                   {showIcon && (
                     <img
-                      className="option-icon"
+                      className='option-icon'
                       src={
                         isCorrect
                           ? 'https://assets.ccbp.in/frontend/react-js/quiz-game-check-circle-img.png'
@@ -224,17 +223,17 @@ const QuizGameRoute = () => {
                 <div
                   className={`option ${optionClass}`}
                   onClick={() => handleAnswerSelection(option.id)}
-                  role="button"
+                  role='button'
                   tabIndex={0}
                 >
                   <img
                     src={option.url}
                     alt={option.text}
-                    className="option-image"
+                    className='option-image'
                   />
                   {showIcon && (
                     <img
-                      className="option-icon"
+                      className='option-icon'
                       src={
                         isCorrect
                           ? 'https://assets.ccbp.in/frontend/react-js/quiz-game-check-circle-img.png'
@@ -257,21 +256,21 @@ const QuizGameRoute = () => {
             const isCorrect = crctOptId === option.id
             const showIcon = isSelected || (isCorrect && slctOptId !== null)
             return (
-              <li key={option.id} className="option-container single-select">
+              <li key={option.id} className='option-container single-select'>
                 <input
-                  type="radio"
+                  type='radio'
                   id={option.id}
-                  name="singleSelectOption"
+                  name='singleSelectOption'
                   checked={isSelected}
                   onChange={() => handleAnswerSelection(option.id)}
-                  className="single-select-radio"
+                  className='single-select-radio'
                   disabled={slctOptId !== null}
                 />
-                <label htmlFor={option.id} className="single-select-label">
+                <label htmlFor={option.id} className='single-select-label'>
                   {option.text}
                   {showIcon && (
                     <img
-                      className="option-icon"
+                      className='option-icon'
                       src={
                         isCorrect
                           ? 'https://assets.ccbp.in/frontend/react-js/quiz-game-check-circle-img.png'
@@ -294,30 +293,28 @@ const QuizGameRoute = () => {
     }
 
     return (
-      <div className="quiz-page">
-        <div className="quiz-page-content">
-          <div className="question-time-container">
-            <div className="number-container">
-              <p className="q-text">
-                Question{' '}
-                <p className="question-number">
-                  {activeQuestionIndex + 1}/{quizQuestions.length}
-                </p>
+      <div className='quiz-page'>
+        <div className='quiz-page-content'>
+          <div className='question-time-container'>
+            <div className='number-container'>
+              <p className='q-text'>Question </p>
+              <p className='question-number'>
+                {activeQuestionIndex + 1}/{quizQuestions.length}
               </p>
             </div>
-            <div className="time-container">
+            <div className='time-container'>
               <p>{timer}</p>
             </div>
           </div>
-          <div className="question-container">
-            <p className="question-text">{question}</p>
+          <div className='question-container'>
+            <p className='question-text'>{question}</p>
           </div>
-          <ul className="options-container">{renderOptions()}</ul>
+          <ul className='options-container'>{renderOptions()}</ul>
           <button
-            className="next-btn"
+            className='next-btn'
             onClick={handleNextQuestion}
             disabled={selectedAnswerIndex === -1}
-            type="button"
+            type='button'
           >
             {activeQuestionIndex + 1 === quizQuestions.length
               ? 'Submit'
@@ -344,9 +341,9 @@ const QuizGameRoute = () => {
   return (
     <>
       <Header />
-      <div className="quiz-page-container">{renderViews()}</div>
+      <div className='quiz-page-container'>{renderViews()}</div>
     </>
   )
 }
 
-export default QuizGameRoute
+export default QuizGame

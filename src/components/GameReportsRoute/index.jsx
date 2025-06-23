@@ -33,39 +33,107 @@ const GameReportsRoute = () => {
       <div className="unattempted-questions-container">
         <h2>Unattempted Questions</h2>
         {unattemptedQuestions.map(question => (
-          <div key={question.id} className="question-container">
+          <ul key={question.id} className="question-container">
             <h3>{question.question}</h3>
-            <div className="options-wrapper">
-              <div className="options-container">
-                {question.options.map(option => (
-                  <button
+            {question.options.map((option, index) => {
+              const isCorrect = option.id === question.crctOptId
+
+              if (question.optionType === 'DEFAULT') {
+                return (
+                  <li
                     key={option.id}
-                    className={`option ${
-                      option.id === question.crctOptId ? 'correct' : ''
-                    }`}
-                    type="button"
+                    className={`option ${isCorrect ? 'correct' : ''}`}
                   >
-                    {question.optionType === 'IMAGE' ? (
+                    <span>{`${String.fromCharCode(65 + index)}. `}</span>
+                    <button
+                      className={`option ${isCorrect ? 'correct' : ''}`}
+                      aria-label={option.text}
+                      type="button"
+                    >
+                      {option.text}
+                      {isCorrect && (
+                        <img
+                          className="option-icon"
+                          alt="correct checked circle"
+                          src="https://assets.ccbp.in/frontend/react-js/quiz-game-check-circle-img.png"
+                        />
+                      )}
+                    </button>
+                  </li>
+                )
+              }
+
+              if (question.optionType === 'SINGLE_SELECT') {
+                return (
+                  <li
+                    key={option.id}
+                    className="option-container single-select"
+                  >
+                    {isCorrect ? (
+                      <input
+                        type="radio"
+                        id={option.id}
+                        name={`singleSelectOption-${question.id}`}
+                        className="single-select-radio"
+                        aria-label={option.text}
+                        checked
+                      />
+                    ) : (
+                      <input
+                        type="radio"
+                        id={option.id}
+                        name={`singleSelectOption-${question.id}`}
+                        className="single-select-radio"
+                        aria-label={option.text}
+                        disabled
+                      />
+                    )}
+
+                    <label htmlFor={option.id} className="single-select-label">
+                      <span>{option.text}</span>
+                      {isCorrect && (
+                        <img
+                          className="option-icon"
+                          alt="correct checked circle"
+                          src="https://assets.ccbp.in/frontend/react-js/quiz-game-check-circle-img.png"
+                        />
+                      )}
+                    </label>
+                  </li>
+                )
+              }
+
+              if (question.optionType === 'IMAGE') {
+                return (
+                  <li
+                    key={option.id}
+                    className={`option ${isCorrect ? 'correct' : ''}`}
+                  >
+                    <button
+                      className={`option ${isCorrect ? 'correct' : ''}`}
+                      aria-label={option.text}
+                      type="button"
+                    >
                       <img
                         src={option.url}
                         alt={option.text}
                         className="option-image"
                       />
-                    ) : (
-                      option.text
-                    )}
-                    {option.id === question.crctOptId && (
-                      <img
-                        className="option-icon"
-                        alt="correct checked circle"
-                        src="https://assets.ccbp.in/frontend/react-js/quiz-game-check-circle-img.png"
-                      />
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+                      {isCorrect && (
+                        <img
+                          className="option-icon"
+                          alt="correct checked circle"
+                          src="https://assets.ccbp.in/frontend/react-js/quiz-game-check-circle-img.png"
+                        />
+                      )}
+                    </button>
+                  </li>
+                )
+              }
+
+              return null
+            })}
+          </ul>
         ))}
       </div>
     )
@@ -92,7 +160,7 @@ const GameReportsRoute = () => {
                   src="https://assets.ccbp.in/frontend/react-js/quiz-game-right-check-img.png"
                   alt="correct answer icon"
                   className="score-icon"
-                />{' '}
+                />
                 <p className="count">{CorrectAnswers} Correct answers</p>
               </div>
               <div className="score-item">
@@ -100,7 +168,7 @@ const GameReportsRoute = () => {
                   src="https://assets.ccbp.in/frontend/react-js/quiz-game-wrong-check-img.png"
                   alt="incorrect answer icon"
                   className="score-icon"
-                />{' '}
+                />
                 <p className="count">{IncorrectAnswers} Incorrect answers</p>
               </div>
               <div className="score-item">
@@ -108,8 +176,8 @@ const GameReportsRoute = () => {
                   src="https://assets.ccbp.in/frontend/react-js/quiz-game-un-answered-img.png"
                   alt="unattempted icon"
                   className="score-icon"
-                />{' '}
-                <p className="count">{Unattempted} Unattempted answers</p>
+                />
+                <p className="count">{Unattempted} Unattempted</p>
               </div>
             </div>
           </div>

@@ -7,8 +7,8 @@ const GameResultRoute = () => {
   const history = useHistory()
   const {crctAns = 0, ttlQns = 10, questions = []} = location.state || {}
 
-  const correctPercentage = ((crctAns / ttlQns) * 100).toFixed(0)
-  const isWinner = correctPercentage >= 60
+  const Percentage = ((crctAns / ttlQns) * 100).toFixed(0)
+  const isWinner = Percentage >= 60
 
   const handleReport = () => {
     history.push({
@@ -20,6 +20,19 @@ const GameResultRoute = () => {
       },
     })
   }
+
+  const message = (
+    <>
+      <h1 className="percentage-text">{Percentage}% Correctly Answered</h1>
+      <p className="success-text">Quiz completed successfully</p>
+      <p className="score-text">
+        You attempted {crctAns} out of {ttlQns} questions as correct
+      </p>
+      <button type="button" className="report-button" onClick={handleReport}>
+        Report
+      </button>
+    </>
+  )
 
   return (
     <div className="page-container">
@@ -38,20 +51,7 @@ const GameResultRoute = () => {
                 className="won-image"
               />
               <h1 className="congrats-text">Congrats</h1>
-              <h1 className="percentage-text">
-                {correctPercentage}% Correctly Answered
-              </h1>
-              <p className="success-text">Quiz completed successfully</p>
-              <p className="score-text">
-                You attempted {crctAns} out of {ttlQns} questions as correct
-              </p>
-              <button
-                type="button"
-                className="report-button"
-                onClick={handleReport}
-              >
-                Report
-              </button>
+              {message}
             </div>
           ) : (
             <div className="result">
@@ -61,19 +61,7 @@ const GameResultRoute = () => {
                 className="lose-image"
               />
               <h1 className="congrats-text">You lose</h1>
-              <h1 className="percentage-text">
-                {correctPercentage}% Correctly Answered
-              </h1>
-              <p className="score-text">
-                You attempted {crctAns} out of {ttlQns} questions as correct
-              </p>
-              <button
-                type="button"
-                className="report-button"
-                onClick={handleReport}
-              >
-                Report
-              </button>
+              {message}
             </div>
           )}
         </div>
